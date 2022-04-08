@@ -1,0 +1,20 @@
+{
+    "variables": {
+        "aws_access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
+        "aws_secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
+        "aws_region": "{{env `AWS_REGION`}}",
+        "aws_source_ami_id": "{{env `AWS_SOURCE_AMI_ID`}}",
+        "aws_ami_owner": "{{env `AWS_OWNER`}}",
+        "aws_instance_type": "{{env `AWS_INSTANCE_TYPE`}}",
+        "aws_ssh_username": "{{env `AWS_SSH_USERNAME`}}",
+        "aws_ami_name": "{{env `AWS_AMI_NAME`}}",
+        "aws_vpc_id": "{{env `AWS_VPC_ID`}}",
+        "aws_subnet_id": "{{env `AWS_SUBNET_ID`}}"
+    },
+    "builders": [{
+        
+    }],
+    "provisioners": [{
+
+    }]
+}
