@@ -6,15 +6,39 @@
         "aws_source_ami_id": "{{env `AWS_SOURCE_AMI_ID`}}",
         "aws_ami_owner": "{{env `AWS_OWNER`}}",
         "aws_instance_type": "{{env `AWS_INSTANCE_TYPE`}}",
-        "aws_ssh_username": "{{env `AWS_SSH_USERNAME`}}",
-        "aws_ami_name": "{{env `AWS_AMI_NAME`}}",
         "aws_vpc_id": "{{env `AWS_VPC_ID`}}",
-        "aws_subnet_id": "{{env `AWS_SUBNET_ID`}}"
+        "aws_subnet_id": "{{env `AWS_SUBNET_ID`}}",
+        "ami_ssh_key": "{{env `AMI_SSH_KEY`}}",
+        "ami_config_shell": "{{env `AMI_CONFIG_SHELL`}}"
     },
     "builders": [{
-        
+        "type": "amazon-ebs",
+        "access_key": "{{user `aws_access_key`}}",
+        "secret_key": "{{user `aws_secret_key`}}",
+        "region": "{{user `aws_region`}}",
+        "source_ami": "{{user `aws_source_ami_id`}}",
+        "source_ami_filter": {
+            "owners": ["{{user `aws_ami_owner`}}"],
+            "most_recent": true
+        },
+        "instance_type": "t2.micro",
+        "ssh_username": "ec2-user",
+        "ami_name": "desafio01",
+        "vpc_id": "{{user `aws_vpc_id`}}",
+        "subnet_id": "{{user `aws_subnet_id`}}"
     }],
     "provisioners": [{
-
-    }]
+            "type": "file",
+            "source": "./configs/{{user `ami_ssh_key`}}",
+            "destination": "~/.ssh/"
+        },
+        {
+            "type": "shell",
+            "inline": ["cat ~/.ssh/{{user `ami_ssh_key`}} >> ~/.ssh/authorized_keys"]
+        },
+        {
+            "type": "shell",
+            "script": "./configs/{{user `ami_config_shell`}}"
+        }
+    ]
 }
